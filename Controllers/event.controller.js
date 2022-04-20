@@ -48,7 +48,7 @@ class EventController {
     }
 
     //Slet et event
-    delete = async() => {
+    delete = async(req, res) => {
         try {
             await EventModel.destroy({ where: { id: req.params.id } });
             res.sendStatus(200)

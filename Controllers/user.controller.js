@@ -25,9 +25,9 @@ class UserController {
     //Opret en user 
     create = async(req, res) => {
         //Fra database - skal være der for at oprette et eventt
-        const { firstname, lastname, email, password } = req.body;
+        const { firstname, lastname, email, password, class_id } = req.body;
 
-        if (firstname && lastname && email && password) {
+        if (firstname && lastname && email && password && class_id) {
             const model = await UserModel.create(req.body);
             return res.json({ newid: model.id });
         } else {
@@ -48,7 +48,7 @@ class UserController {
     }
 
     //Slet en user
-    delete = async() => {
+    delete = async(req, res) => {
         try {
             await UserModel.destroy({ where: { id: req.params.id } });
             res.sendStatus(200)
