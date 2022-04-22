@@ -1,83 +1,55 @@
-import express from 'express';
-import EventRouter from './Routes/user.router.js';
-import UserRouter from './Routes/event.router.js';
-import cors from "cors";
-
-
+import express from "express";
+import EventRouter from "./Routes/user.router.js";
+import UserRouter from "./Routes/event.router.js";
 
 import dotenv from "dotenv";
-
-
 
 //Kalder en environment vars
 
 dotenv.config();
 
-
-
 const port = process.env.PORT || 4000;
-
-
 
 const app = express();
 
-
 app.use(
+	express.urlencoded({
+		extended: true,
+	}),
 
-    express.urlencoded({
+	express.json(),
 
-        extended: true,
+	function (req, res, next) {
+		// Website you wish to allow to connect
 
-    }),
+		res.setHeader("Access-Control-Allow-Origin", "*");
 
-    express.json(),
+		// Request methods you wish to allow
 
-    function (req, res, next) {
+		res.setHeader(
+			"Access-Control-Allow-Methods",
 
-        // Website you wish to allow to connect
+			"GET, POST, OPTIONS, PUT, PATCH, DELETE"
+		);
 
-        res.setHeader("Access-Control-Allow-Origin", "*");
+		// Request headers you wish to allow
 
+		res.setHeader(
+			"Access-Control-Allow-Headers",
 
+			"X-Requested-With,content-type"
+		);
 
-        // Request methods you wish to allow
+		// Set to true if you need the website to include cookies in the requests sent
 
-        res.setHeader(
+		// to the API (e.g. in case you use sessions)
 
-            "Access-Control-Allow-Methods",
+		res.setHeader("Access-Control-Allow-Credentials", true);
 
-            "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+		// Pass to next layer of middleware
 
-        );
-
-
-
-        // Request headers you wish to allow
-
-        res.setHeader(
-
-            "Access-Control-Allow-Headers",
-
-            "X-Requested-With,content-type"
-
-        );
-
-
-
-        // Set to true if you need the website to include cookies in the requests sent
-
-        // to the API (e.g. in case you use sessions)
-
-        res.setHeader("Access-Control-Allow-Credentials", true);
-
-
-
-        // Pass to next layer of middleware
-
-        next();
-
-    }
-
+		next();
+	}
 );
 
 //Brug router
