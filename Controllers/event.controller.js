@@ -9,7 +9,10 @@ class EventController {
             //limit: 2,
             order: ['title']
         });
+        //Sender result
         res.send(result);
+        //Fejl meddelse 
+        return res.status(418).send('Kunne ikke åbne eventerne.');
     }
 
     //Henter details
@@ -17,8 +20,10 @@ class EventController {
         try {
             const result = await EventModel.findAll({ where: { id: req.params.id } });
             return res.json(result);
-        } catch (err) {
-            return res.send(err);
+        }
+        //Hvis fejl - send fejlmeddelse 
+        catch (err) {
+            return res.status(418).send('Kunne ikke åbne detaljer. Tjek om du har korrekt id.');
         }
     }
 
@@ -30,8 +35,10 @@ class EventController {
         if (title && content && startdate && stopdate) {
             const model = await EventModel.create(req.body);
             return res.json({ newid: model.id });
-        } else {
-            return res.send(418)
+        }
+        //Hvis fejl - send fejlmeddelse 
+        else {
+            return res.status(418).send('Kunne ikke oprette eventet. Tjek om du har udfyldt alle felterne korrekt.');
         }
     }
 
@@ -42,8 +49,10 @@ class EventController {
         if (title && content && startdate && stopdate) {
             await EventModel.update(req.body, { where: { id: id } });
             return res.sendStatus(200);
-        } else {
-            return res.send(418)
+        }
+        //Hvis fejl - send fejlmeddelse 
+        else {
+            return res.status(418).send('Kunne ikke opdatere eventet. Tjek om du har udfyldt alle felterne korrekt.');
         }
     }
 
@@ -52,8 +61,10 @@ class EventController {
         try {
             await EventModel.destroy({ where: { id: req.params.id } });
             res.sendStatus(200)
-        } catch (err) {
-            res.send(err)
+        }
+        //Hvis fejl - send fejlmeddelse 
+        catch (err) {
+            return res.status(418).send('Kunne ikke slette eventet. Tjek om du har valid id og prøv igen.');
         }
     }
 }

@@ -1,5 +1,6 @@
 import { sequelize } from "../Config/db.config.js";
 import { Sequelize, DataTypes, Model } from 'sequelize';
+import bcrypt from 'bcrypt';
 
 class UserModel extends Model {}
 
@@ -26,18 +27,26 @@ UserModel.init({
     password: {
         type: DataTypes.STRING,
         allowNull: false
-    },
-    class_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
     }
 }, {
     sequelize, // Sequelize instance
     modelName: 'user', // Table name
     freezeTableName: true, // Lås tabelnavne til ental
     underscored: true, // Brug underscores istedet for camelcase
-    createdAt: false, // Custom name
-    updatedAt: false // Undlad felt
+    hooks: {
+        beforeCreate: async(user, options) => {
+            user.password = await createHash(user.password)
+        },
+        beforeUpdate: async(user, options) => {
+            user.password = await createHash(user.password)
+        }
+    }
 })
+
+export const createHash = async string => {
+    const salt = await bcrypt.genSalt(10);
+    const hashed_string = await bcrypt.hash(string, salt);
+    return hashed_string;
+}
 
 export default UserModel
