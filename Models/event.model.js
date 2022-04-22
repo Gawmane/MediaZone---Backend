@@ -26,6 +26,10 @@ EventModel.init({
     stopdate: {
         type: DataTypes.DATE,
         allowNull: false
+    },
+    location: {
+        type: DataTypes.STRING,
+        allowNull: false
     }
 }, {
     sequelize, // Sequelize instance

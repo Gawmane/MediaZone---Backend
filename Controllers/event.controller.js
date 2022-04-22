@@ -30,9 +30,9 @@ class EventController {
     //Opret et event 
     create = async(req, res) => {
         //Fra database - skal være der for at oprette et eventt
-        const { title, content, startdate, stopdate } = req.body;
+        const { title, content, startdate, stopdate, location } = req.body;
 
-        if (title && content && startdate && stopdate) {
+        if (title && content && startdate && stopdate && location) {
             const model = await EventModel.create(req.body);
             return res.json({ newid: model.id });
         }
@@ -44,9 +44,9 @@ class EventController {
 
     //Opdater et event 
     update = async(req, res) => {
-        const { title, content, startdate, stopdate, id } = req.body;
+        const { title, content, startdate, stopdate, id, location } = req.body;
 
-        if (title && content && startdate && stopdate) {
+        if (title && content && startdate && stopdate && location) {
             await EventModel.update(req.body, { where: { id: id } });
             return res.sendStatus(200);
         }
