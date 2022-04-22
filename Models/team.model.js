@@ -1,22 +1,17 @@
 import { sequelize } from "../Config/db.config.js";
 import { Sequelize, DataTypes, Model } from 'sequelize';
 
-class EventModel extends Model {}
+class TeamModel extends Model {}
 
-//Tabeller fra databasen (event)
-EventModel.init({
+TeamModel.init({
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
-    title: {
+    name: {
         type: DataTypes.STRING,
-        allowNull: false
-    },
-    content: {
-        type: DataTypes.TEXT,
         allowNull: false
     },
     startdate: {
@@ -29,11 +24,11 @@ EventModel.init({
     }
 }, {
     sequelize, // Sequelize instance
-    modelName: 'event', // Table name
+    modelName: 'team', // Table name
     freezeTableName: true, // Lås tabelnavne til ental
     underscored: true, // Brug underscores istedet for camelcase
     createdAt: true, // Custom name
     updatedAt: true // Undlad felt
 })
 
-export default EventModel
+export default TeamModel
