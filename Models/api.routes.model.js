@@ -16,6 +16,10 @@ ApiRoutesModel.init(
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
+		friendly_name: {
+			type: DataTypes.STRING,
+			allowNull: false,
+		},
 		description: {
 			type: DataTypes.TEXT,
 			allowNull: false,

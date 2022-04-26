@@ -28,6 +28,10 @@ ApiFieldsModel.init(
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
+		hidden: {
+			type: DataTypes.BOOLEAN,
+			allowNull: false,
+		},
 	},
 	{
 		sequelize, // Sequelize instance
