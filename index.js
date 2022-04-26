@@ -4,6 +4,7 @@ import UserRouter from "./Routes/user.router.js";
 import UserGroupRouter from "./Routes/usergroup.router.js";
 import TeamRouter from "./Routes/team.router.js";
 import AuthRouter from "./Routes/auth.router.js";
+import ApiRouter from "./Routes/api.router.js";
 import { router } from "./Routes/init.router.js";
 
 import dotenv from "dotenv";
@@ -62,6 +63,7 @@ app.use(UserRouter);
 app.use(UserGroupRouter);
 app.use(TeamRouter);
 app.use(AuthRouter);
+app.use(ApiRouter);
 
 //Kalder serveren
 app.listen(port, () => {
